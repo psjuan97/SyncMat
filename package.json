@@ -1,0 +1,23 @@
+{
+  "name": "SyncMat",
+  "version": "0.0.1",
+  "description": "An app that syncronice a folder computer with UA Materiales Docentes",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Sync",
+    "Material",
+    "folder",
+    "UA"
+  ],
+  "author": "PsJuan",
+  "devDependencies": {
+    "electron": "~1.7.8"
+  },
+  "dependencies": {
+    "sleep": "^5.1.1"
+  }
+}

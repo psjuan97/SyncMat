@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" type="text/css" href="./resources/css/login.css" />
+    <title>SyncMat</title>
+  </head>
+  <body>
+
+  	<div id="login-container">
+
+  	<img src="./resources/images/logo.png" id="image-logo">
+
+    <input class="centered" type="email" id="email" placeholder="E-mail" /> <br>
+    <input class="centered" type="password" id="password" placeholder="Contraseña"  /><br>
+    <input class="centered" type="button" value="Login" onclick="login(document.getElementById('email').value,document.getElementById('password').value)" /><br>
+
+    idmat: <input type="text" id="idmat" placeholder="idmat" value="-1"/>
+    codasi: <input type="text" id="codasi" placeholder="codasi" value="-1"/> <br>
+    <input type="button" value="getMateriales" onclick="getMat(document.getElementById('idmat').value, document.getElementById('codasi').value)" /><br>
+
+
+
+  	</div>
+
+
+
+    <script>
+      let myNotification = new Notification('Title', {
+        body: 'Aplicacion abiert'
+      })
+
+      myNotification.onclick = () => {
+        console.log('Notification clicked')
+      }
+
+
+      function login(email, password){
+      //  alert(email);
+      //  alert(password);
+
+      ipcRenderer.send('login', {'email' : email, 'password': password})
+
+      }
+
+      function getMat(idmat, codasi){
+        //alert(idmat);
+      //  alert(password);
+
+      ipcRenderer.send('getMat', {'idmat' : idmat, 'codasi': codasi})
+
+      }
+
+
+      function scan(){
+      //  alert(password);
+
+      ipcRenderer.send('scan', "")
+
+      }
+
+      // You can also require other files to run in this process
+      require('./renderer.js')
+      // require('./libua.js')
+
+
+const {ipcRenderer} = require('electron')
+console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+
+ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  console.log(arg) // prints "pong"
+})
+ipcRenderer.send('asynchronous-message', 'ping')
+
+            
+    </script>
+
+
+
+
+
+     <script type = "text/javascript">
+         const {remote} = require('electron')
+         const {Tray, Menu} = remote
+         const path = require('path')
+
+         let trayIcon = new Tray(path.join('','./resources/images/notepad.png'))
+
+         const trayMenuTemplate = [
+            {
+               label: 'Empty Application',
+               enabled: false
+            },
+            
+            {
+               label: 'Settings',
+               click: function () {
+                  console.log("Clicked on settings")
+               }
+            },
+            
+            {
+               label: 'Help',
+               click: function () {
+                  console.log("Clicked on Help")
+               }
+            }
+         ]
+         
+         let trayMenu = Menu.buildFromTemplate(trayMenuTemplate)
+         trayIcon.setContextMenu(trayMenu)
+      </script>
+
+
+
+
+  </body>
+</html>

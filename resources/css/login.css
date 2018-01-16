@@ -1,0 +1,39 @@
+/* myStyle.css */
+body {
+ background-color: whitesmoke;
+ color: #000000;
+}
+
+#login-container {
+	position: relative;
+	margin: auto;
+	position: relative;
+	width: 500px;
+	height: 500px;
+	border: 2px solid black;
+    border-radius: 5px;
+}
+
+#image-logo {
+	position: relative;
+	width: 50%;
+	margin: auto;
+	display: block;
+}
+
+.centered {
+	margin: auto;
+	display: block;
+}
+
+h1 {
+ color: #FFFF33;
+ text-align: center;
+ font: italic 200% fantasy;
+}
+p {
+ background-color: #FFFF33;
+ color: #333300;
+ text-align: right;
+ border: 3px groove #FFFF33;
+}
