@@ -33,6 +33,6 @@ $ npm start
 
 ## Built With
 * [Electron](https://electronjs.org/) - Framework
-* [Electron](https://github.com/cheeriojs/cheerio) -  Implementation of core jQuery
+* [Cheerio](https://github.com/cheeriojs/cheerio) -  Implementation of core jQuery
 * [Node](https://nodejs.org/en/) - JavaScript runtime 
 
