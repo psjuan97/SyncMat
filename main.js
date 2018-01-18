@@ -7,13 +7,18 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+  const {Tray, Menu} = electron
+
+
+
+
 var ua = require("./libua.js");
 
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+let trayIcon
 
 
 const {ipcMain} = require('electron')
@@ -24,6 +29,25 @@ ipcMain.on('login', (event, arg) => {
 
   event.sender.send('resp', 'login')
 })
+
+
+function moveWindow(coord){
+  console.log("Move Windows") // prints "ping"
+
+     
+  var screen = electron.screen.getPrimaryDisplay().workAreaSize
+  console.log(screen) // prints "ping"
+
+mainWindow.setPosition(screen.width - 400 , coord.y - 600)
+
+
+
+
+}
+
+
+
+
 
 
 ipcMain.on('getMat', (event, arg) => {
@@ -50,8 +74,8 @@ ipcMain.on('synchronous-message', (event, arg) => {
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
 
+  mainWindow = new BrowserWindow({width: 400, height: 600,skipTaskbar: true,    autoHideMenuBar: true/*, frame: false*/})
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -69,6 +93,51 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+
+
+
+  trayIcon = new Tray(path.join('','./resources/images/notepad.png'))
+
+
+         const trayMenuTemplate = [
+            {
+               label: 'Empty Application',
+               enabled: false
+            },
+            
+            {
+               label: 'Settings',
+               click: function () {
+                  console.log("Clicked on settings")
+               }
+            },
+            
+            {
+               label: 'Help',
+               click: function () {
+                  console.log("Clicked on Help")
+               }
+            }
+         ]
+         
+         let trayMenu = Menu.buildFromTemplate(trayMenuTemplate)
+         trayIcon.setContextMenu(trayMenu)
+                  console.log(trayIcon.getBounds());
+
+                    trayIcon.on('click', function handleClicked () {
+                      console.log('Tray clicked');
+                      console.log(electron.screen.getCursorScreenPoint());
+                      moveWindow(electron.screen.getCursorScreenPoint());
+                        mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+                        mainWindow.setSkipTaskbar(true);
+
+
+                    });
+
+
+
+
 }
 
 // This method will be called when Electron has finished
@@ -95,3 +164,7 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+
+
